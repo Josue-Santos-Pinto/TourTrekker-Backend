@@ -1,9 +1,12 @@
 import { Request, Response, Router } from "express"
+import { prisma } from "../libs/prisma"
 
-const router = Router()
+export const mainRouter = Router()
 
-router.get('/ping', (req: Request, res: Response) => {
+mainRouter.get('/ping', (req: Request, res: Response) => {
     res.json({'pong': true})
 })
 
-export default router
+mainRouter.get('/test', (req: Request, res: Response) => {
+    prisma.user
+})

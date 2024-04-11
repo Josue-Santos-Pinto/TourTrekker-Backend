@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import path from 'path'
 import cors from 'cors'
-import MainRoute from './routes'
+import {mainRouter} from './routes'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -13,7 +13,7 @@ server.use(cors({origin: '*'}))
 
 server.use(express.urlencoded({extended: true}))
 
-server.use(MainRoute)
+server.use(mainRouter)
 
 server.use((req: Request,res:Response)=>{
     res.status(404).send('Página não encontrada')

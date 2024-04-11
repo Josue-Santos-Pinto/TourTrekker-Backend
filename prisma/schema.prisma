@@ -3,13 +3,46 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
   id        Int       @id @default(autoincrement())
+  name      String
   isSeller  Boolean   @default(false)
   email     String    @unique
   password  String
+  cpf       String?   @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  tours     Tour[]
+
+  @@map("users")
+}
+
+
+model Tour {
+  id        Int   @id @default(autoincrement())
+  slogan    String?
+  city      String
+  state     String
+  country   String
+  dateStart DateTime
+  dateEnd   DateTime
+  price     Float
+  images    Image[]
+  userId    Int
+  host      User @relation(fields: [userId], references: [id])
+
+  @@map("tours")
+}
+
+model Image {
+  id        Int   @id @default(autoincrement())
+  imageUrl  String
+  tourId    Int
+  images    Tour @relation(fields: [tourId], references: [id])
+
+  @@map("images")
 }
