@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { createUser } from "../services/user";
 import JWT from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import { generateToken } from "../config/passport";
 
 dotenv.config()
 
@@ -13,11 +14,7 @@ export const userController = {
         if(email && password){
             const user = await createUser({email, password})
             if(user){
-                const token = JWT.sign(
-                    {id: user.id, email: user.email},
-                    process.env.JWT_SECRET_KEY as string,
-                    {expiresIn: '2h'}
-                )
+                const token = generateToken({id: user.id})
                 res.status(201)
                 .json({status: true, user, token})
             } 

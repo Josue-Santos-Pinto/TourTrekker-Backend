@@ -9,9 +9,16 @@ type Props = {
 type FindUserProps = {
     email: string
 }
+type FindUserPkProps = {
+    id: number
+}
 
 const findUser = async ({email}: FindUserProps ) => {
         return await prisma.user.findFirst({where: {email}})
+}
+
+export const findUserByPk = async ({id}: FindUserPkProps ) => {
+    return await prisma.user.findFirst({where: {id}})
 }
 
 export const createUser = async ({email, password}: Props) => {

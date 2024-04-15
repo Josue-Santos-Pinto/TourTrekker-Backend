@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express"
 import { userController } from "../controllers/userController"
 import { tourController } from "../controllers/tourController"
-import { Auth } from "../middlewares/auth"
+import { privateRoute } from "../config/passport"
 
 export const mainRouter = Router()
 
@@ -10,5 +10,5 @@ mainRouter.get('/ping', (req: Request, res: Response) => {
 })
 
 mainRouter.post('/user', userController.register)
-mainRouter.put('/user', Auth.private, userController.edit)
+mainRouter.put('/user', privateRoute, userController.edit)
 mainRouter.get('/tours', tourController.getAll)
