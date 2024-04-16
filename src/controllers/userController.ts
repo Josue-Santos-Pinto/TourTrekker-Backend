@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import { createUser } from "../services/user";
-import JWT from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { generateToken } from "../config/passport";
-import bcrypt from 'bcrypt'
+
 
 dotenv.config()
 
