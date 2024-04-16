@@ -10,5 +10,5 @@ mainRouter.get('/ping', (req: Request, res: Response) => {
 })
 
 mainRouter.post('/user', userController.register)
-mainRouter.put('/user', privateRoute, userController.edit)
+mainRouter.put('/myaccount', privateRoute, userController.edit)
 mainRouter.get('/tours', tourController.getAll)
