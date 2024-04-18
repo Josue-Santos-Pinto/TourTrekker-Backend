@@ -4,6 +4,7 @@ import cors from 'cors'
 import {mainRouter} from './routes'
 import dotenv from 'dotenv'
 import passport from 'passport'
+import { MulterError } from 'multer'
 
 dotenv.config()
 
@@ -17,10 +18,11 @@ server.use(passport.initialize())
 server.use(mainRouter)
 
 server.use((req: Request,res:Response)=>{
-    res.status(404).send('Página não encontrada')
+    res.status(404).send('Endpoint não encontrado')
 })
 const errorHandler: ErrorRequestHandler = (err, req, res) => {
     err.status ? res.status(err.status) : res.status(400)
+    err instanceof MulterError ?? res.json({error: err.message}) 
     err.message ? res.json({error: err.message}) : res.json({error: 'Ocorreu um erro'})
 }
 
